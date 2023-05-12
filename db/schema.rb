@@ -10,22 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_181050) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_10_021028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "admin_users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "mobile"
-    t.string "address_line_1"
-    t.string "address_line_2"
-    t.integer "gender"
-    t.datetime "dob"
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -36,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_181050) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "employees", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.boolean "is_admin"
@@ -47,10 +34,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_181050) do
     t.integer "gender"
     t.date "dob"
     t.string "email"
+    t.string "type"
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_employees_on_company_id"
+    t.string "jti", null: false
+    t.string "password_digest"
+    t.index ["company_id"], name: "index_users_on_company_id"
+    t.index ["jti"], name: "index_users_on_jti", unique: true
   end
 
 end

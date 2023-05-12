@@ -1,4 +1,4 @@
-class Employee < User
+class AdminEmployee < User
   searchkick word_start: [:first_name, :last_name, :email]
   belongs_to :company
 

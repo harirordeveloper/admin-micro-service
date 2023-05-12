@@ -33,5 +33,6 @@ module AdminService
     }
 
     config.active_job.queue_adapter = :sidekiq
+    config.elasticsearch_url = ENV['ELASTICSEARCH_URL'] || 'http://localhost:9200'
   end
 end

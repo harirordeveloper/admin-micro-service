@@ -1,15 +1,12 @@
 class ServiceWorker
   include Sidekiq::Worker
+  sidekiq_options retry: false
+  COMPANY_SERVICE = 'company_service'
 
-  def perform(service_name, message)
-    puts "Received message: #{message}"
-    case service_name
-    when "admin_management_api"
-      # process company message
-    when "company_management_api"
-      # process company message
-    when "notification_management_api"
-      # process notification message
+  def perform(message)
+    message = eval(message)
+    if message[:service_id] == COMPANY_SERVICE
+      CompanyKafkaSubscriberService.sync_data(message)
     end
   end
 end

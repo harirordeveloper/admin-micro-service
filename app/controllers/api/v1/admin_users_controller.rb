@@ -1,7 +1,7 @@
-class Api::V1::AdminUsersController < ApplicationController
+class Api::V1::AdminUsersController < Api::V1::BaseController
   def create
     admin_user = AdminUser.create!(admin_user_params)
-    KafkaService.send_message("admin_user", { action: "create", company: admin_user.as_json })
+    KafkaService.send_message("admin_user", { action: "create", resource: 'company', data: admin_user.as_json })
     render json: admin_user, status: :created
   end
 
