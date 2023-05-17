@@ -46,7 +46,6 @@ class Api::V1::EmployeesController < Api::V1::BaseController
   end
 
   def find_company
-    byebug
     @company = Company.find_by_id(params[:company_id])
     render json: "Company not found", status: :not_found if @company.blank?
   end

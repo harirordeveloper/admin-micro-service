@@ -12,7 +12,7 @@ class Api::V1::AdminEmployeesController < Api::V1::EmployeesController
 
   def create
     employee = @company.admin_employees.create!(employee_params)
-    KafkaService.send_message("admin_employee", { action: "create", resource: 'AdminEmployee', service_id: 'admin_service', data: @employee.as_json })
+    KafkaService.send_message("admin_employee", { action: "create", resource: 'AdminEmployee', service_id: 'admin_service', data: employee.as_json })
     render json: employee, status: :created
   end
 
